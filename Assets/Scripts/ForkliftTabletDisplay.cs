@@ -71,16 +71,39 @@ public class ForkliftTabletDisplay : MonoBehaviour
 
     private string GetEngineToggleBindingDisplayString()
     {
-        var action = input?.Player.EngineToggle;
-
-        if (action == null)
+        if (input == null)
             return "T";
 
-        string bindingText = action.GetBindingDisplayString();
+        var action = input.Player.EngineToggle;
+        if (action == null || action.bindings.Count == 0)
+            return "T";
 
-        if (string.IsNullOrWhiteSpace(bindingText))
-            bindingText = "T";
+        int bindingIndex = action.GetBindingIndexForControl(action.controls.Count > 0 ? action.controls[0] : null);
 
-        return bindingText;
+        if (bindingIndex < 0)
+            bindingIndex = 0;
+
+        string effectivePath = action.bindings[bindingIndex].effectivePath;
+
+        if (string.IsNullOrWhiteSpace(effectivePath))
+            return "T";
+
+        int slashIndex = effectivePath.LastIndexOf('/');
+        if (slashIndex < 0 || slashIndex >= effectivePath.Length - 1)
+            return "T";
+
+        string key = effectivePath[(slashIndex + 1)..];
+
+        return key switch
+        {
+            "space" => "SPACE",
+            "leftShift" => "LEFT SHIFT",
+            "rightShift" => "RIGHT SHIFT",
+            "leftCtrl" => "LEFT CTRL",
+            "rightCtrl" => "RIGHT CTRL",
+            "leftAlt" => "LEFT ALT",
+            "rightAlt" => "RIGHT ALT",
+            _ => key.ToUpperInvariant()
+        };
     }
 }

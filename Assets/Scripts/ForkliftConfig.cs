@@ -28,6 +28,19 @@ public class ForkliftConfig : ScriptableObject
     [Min(0f)] public float SteerReturnSpeed = 160f;
     [Min(0f)] public float TurnSpeed = 90f;
 
+    [Header("Forks Physics")]
+    [Min(-2f)] public float ForkMinHeight = -2f;
+    [Min(0f)] public float ForkMaxHeight = 0.3f;
+    [Min(0f)] public float ForkMoveSpeed = 1.2f;
+
+    [Header("Fork Joint Drive")]
+    [Min(0f)] public float ForkPositionSpring = 8000f;
+    [Min(0f)] public float ForkPositionDamper = 1200f;
+    [Min(0f)] public float ForkMaxDriveForce = 20000f;
+
+    [Header("Fork Input")]
+    [Min(0f)] public float ForkInputDeadZone = 0.01f;
+    
     [Header("Visual Steering")]
     [Min(0f)] public float SteeringWheelVisualAngle = 270f;
     [Min(0f)] public float VisualSteerSmoothTime = 0.05f;

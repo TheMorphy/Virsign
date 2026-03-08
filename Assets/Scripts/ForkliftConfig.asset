@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc904520e53567546a799b089f809fc2, type: 3}
   m_Name: ForkliftConfig
   m_EditorClassIdentifier: Assembly-CSharp::ForkliftConfig
-  MaxForwardSpeed: 4.5
+  MaxForwardSpeed: 4
   MaxReverseSpeed: 3.5
   Acceleration: 6
   Braking: 6
   IdleDrag: 3
   FuelCapacity: 100
   FuelBurnPerSecondAtIdle: 0.1
-  FuelBurnPerSecondAtFullThrottle: 50
+  FuelBurnPerSecondAtFullThrottle: 2
   LowFuelThresholdNormalized: 0.5
   EmptyFuelSpeedMultiplier: 0.5
   CoastingDrag: 0
@@ -28,7 +28,14 @@ MonoBehaviour:
   MaxSteerAngle: 35
   SteerResponse: 120
   SteerReturnSpeed: 120
-  TurnSpeed: 130
+  TurnSpeed: 115
+  ForkMinHeight: -2
+  ForkMaxHeight: 0.1
+  ForkMoveSpeed: 1.2
+  ForkPositionSpring: 8000
+  ForkPositionDamper: 1200
+  ForkMaxDriveForce: 20000
+  ForkInputDeadZone: 0.01
   SteeringWheelVisualAngle: 270
   VisualSteerSmoothTime: 0.05
   WheelRadius: 0.25
