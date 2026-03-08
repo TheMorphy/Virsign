@@ -6,7 +6,9 @@ public class ForkliftMovement : MonoBehaviour
 {
     [Header("Config")]
     [SerializeField] private ForkliftConfig config;
-
+    [SerializeField] private ForkliftEngineState engineState;
+    [SerializeField] private ForkliftFuelSystem fuelSystem;
+        
     [Header("References")]
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Transform steeringWheel;
@@ -24,7 +26,6 @@ public class ForkliftMovement : MonoBehaviour
     private PlayerInput input;
     private Vector2 moveInput;
 
-    private bool engineStarted;
     private bool isGrounded;
 
     private float currentSteerAngle;
@@ -38,7 +39,6 @@ public class ForkliftMovement : MonoBehaviour
     private Quaternion rearRightWheelBaseRot;
     private Quaternion frontWheelsBaseRot;
 
-    public bool EngineStarted => engineStarted;
     public bool IsGrounded => isGrounded;
     public float CurrentSteerAngle => currentSteerAngle;
 
@@ -61,12 +61,10 @@ public class ForkliftMovement : MonoBehaviour
     private void OnEnable()
     {
         input.Player.Enable();
-        input.Player.EngineToggle.performed += OnEngineToggle;
     }
 
     private void OnDisable()
     {
-        input.Player.EngineToggle.performed -= OnEngineToggle;
         input.Player.Disable();
     }
 
@@ -89,7 +87,7 @@ public class ForkliftMovement : MonoBehaviour
 
         HandleSteering(Time.fixedDeltaTime);
 
-        if (!engineStarted || !isGrounded)
+        if (!engineState.EngineStarted.CurrentValue || !isGrounded)
             return;
 
         HandleMovement(Time.fixedDeltaTime);
@@ -113,12 +111,6 @@ public class ForkliftMovement : MonoBehaviour
     {
         if (rb == null)
             rb = GetComponent<Rigidbody>();
-    }
-
-    private void OnEngineToggle(InputAction.CallbackContext context)
-    {
-        engineStarted = !engineStarted;
-        Debug.Log(engineStarted ? "Engine ON" : "Engine OFF");
     }
 
     private void SetupRigidbody()
@@ -192,10 +184,12 @@ public class ForkliftMovement : MonoBehaviour
             ApplyCoastingDrag(dt);
             return;
         }
+        
+        float speedMultiplier = fuelSystem ? fuelSystem.CurrentSpeedMultiplier : 1f;
 
         float targetMaxSpeed = throttleInput > 0f
-            ? config.MaxForwardSpeed
-            : config.MaxReverseSpeed;
+            ? config.MaxForwardSpeed * speedMultiplier
+            : config.MaxReverseSpeed * speedMultiplier;
 
         float targetSpeed = throttleInput * targetMaxSpeed;
 

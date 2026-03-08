@@ -16,7 +16,6 @@ public class ForkliftConfig : ScriptableObject
     [Min(0f)] public float FuelBurnPerSecondAtFullThrottle = 0.2f;
     [Range(0f, 1f)] public float LowFuelThresholdNormalized = 0.5f;
     [Min(0f)] public float EmptyFuelSpeedMultiplier = 0.5f;
-    [Min(0f)] public float LowFuelBlinkInterval = 0.35f;
 
     [Header("Coasting / Inertia")]
     [Min(0f)] public float CoastingDrag = 0.8f;

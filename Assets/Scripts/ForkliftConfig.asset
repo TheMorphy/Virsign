@@ -12,11 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc904520e53567546a799b089f809fc2, type: 3}
   m_Name: ForkliftConfig
   m_EditorClassIdentifier: Assembly-CSharp::ForkliftConfig
-  MaxForwardSpeed: 5
-  MaxReverseSpeed: 4
-  Acceleration: 8
-  Braking: 8
+  MaxForwardSpeed: 4.5
+  MaxReverseSpeed: 3.5
+  Acceleration: 6
+  Braking: 6
   IdleDrag: 3
+  FuelCapacity: 100
+  FuelBurnPerSecondAtIdle: 0.1
+  FuelBurnPerSecondAtFullThrottle: 50
+  LowFuelThresholdNormalized: 0.5
+  EmptyFuelSpeedMultiplier: 0.5
   CoastingDrag: 0
   ActiveBrakeStrength: 8
   ReverseBrakeStrength: 12
