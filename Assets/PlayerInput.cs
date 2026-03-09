@@ -127,6 +127,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RestartLevel"",
+                    ""type"": ""Button"",
+                    ""id"": ""54705814-5e38-439d-bf58-2ab9868cf0bc"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -217,6 +226,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""LiftDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7af40bfa-72bd-40f7-9fa3-31db8293e62c"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RestartLevel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -241,6 +261,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_EngineToggle = m_Player.FindAction("EngineToggle", throwIfNotFound: true);
         m_Player_LiftUp = m_Player.FindAction("LiftUp", throwIfNotFound: true);
         m_Player_LiftDown = m_Player.FindAction("LiftDown", throwIfNotFound: true);
+        m_Player_RestartLevel = m_Player.FindAction("RestartLevel", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -325,6 +346,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_EngineToggle;
     private readonly InputAction m_Player_LiftUp;
     private readonly InputAction m_Player_LiftDown;
+    private readonly InputAction m_Player_RestartLevel;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -352,6 +374,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/LiftDown".
         /// </summary>
         public InputAction @LiftDown => m_Wrapper.m_Player_LiftDown;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/RestartLevel".
+        /// </summary>
+        public InputAction @RestartLevel => m_Wrapper.m_Player_RestartLevel;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -390,6 +416,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @LiftDown.started += instance.OnLiftDown;
             @LiftDown.performed += instance.OnLiftDown;
             @LiftDown.canceled += instance.OnLiftDown;
+            @RestartLevel.started += instance.OnRestartLevel;
+            @RestartLevel.performed += instance.OnRestartLevel;
+            @RestartLevel.canceled += instance.OnRestartLevel;
         }
 
         /// <summary>
@@ -413,6 +442,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @LiftDown.started -= instance.OnLiftDown;
             @LiftDown.performed -= instance.OnLiftDown;
             @LiftDown.canceled -= instance.OnLiftDown;
+            @RestartLevel.started -= instance.OnRestartLevel;
+            @RestartLevel.performed -= instance.OnRestartLevel;
+            @RestartLevel.canceled -= instance.OnRestartLevel;
         }
 
         /// <summary>
@@ -494,5 +526,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnLiftDown(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "RestartLevel" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRestartLevel(InputAction.CallbackContext context);
     }
 }
