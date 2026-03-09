@@ -18,8 +18,8 @@ public class LevelLoader : MonoBehaviour
 
     private void OnEnable()
     {
-        input.Player.Enable();
         input.Player.RestartLevel.performed += OnRestartLevelPerformed;
+        input.Player.Enable();
     }
 
     private void OnDisable()
@@ -30,7 +30,11 @@ public class LevelLoader : MonoBehaviour
 
     private void OnDestroy()
     {
-        input?.Dispose();
+        if (input == null)
+            return;
+
+        input.Dispose();
+        input = null;
     }
 
     private void OnRestartLevelPerformed(InputAction.CallbackContext context)
@@ -53,15 +57,12 @@ public class LevelLoader : MonoBehaviour
     {
         isRestarting = true;
 
-        if (transition)
+        if (transition != null)
             transition.SetTrigger("Start");
 
         if (transitionDuration > 0f)
             yield return new WaitForSeconds(transitionDuration);
 
-        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(levelIndex);
-
-        while (!loadOperation.isDone)
-            yield return null;
+        SceneManager.LoadScene(levelIndex);
     }
 }

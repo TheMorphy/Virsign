@@ -66,11 +66,7 @@ public class CargoAnimator : MonoBehaviour
         spawnParticle.SetActive(true);
 
         if (cargoRb != null)
-        {
             cargoRb.isKinematic = true;
-            cargoRb.linearVelocity = Vector3.zero;
-            cargoRb.angularVelocity = Vector3.zero;
-        }
 
         moveTween = transform
             .DOMove(targetPosition, moveDuration)
@@ -104,11 +100,7 @@ public class CargoAnimator : MonoBehaviour
         unloadParticle.SetActive(true);
         
         if (cargoRb != null)
-        {
             cargoRb.isKinematic = true;
-            cargoRb.linearVelocity = Vector3.zero;
-            cargoRb.angularVelocity = Vector3.zero;
-        }
 
         Vector3 endPosition = transform.position + Vector3.up * moveHeight;
 
